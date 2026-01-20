@@ -10,41 +10,130 @@
 body { font-family:'Inter', sans-serif; background:#111; color:#fff; }
 .card { background:#1c1c1c; border:none; }
 input, textarea { background:#222 !important; color:#fff !important; }
+.btn-copy { position: absolute; right: 10px; top: 10px; }
 </style>
 </head>
 <body>
 
 <div class="container py-5">
 
-<h2 class="mb-4">Painel Administrativo</h2>
+<h2 class="mb-4">Painel Administrativo - Biblioteca PDF</h2>
+
+<div class="card p-4 mb-4">
+  <h5 class="mb-3">Adicionar Novo PDF</h5>
+  
+  <div class="mb-3">
+    <label class="form-label">Título do PDF *</label>
+    <input id="titulo" class="form-control" placeholder="Ex: Guia de Física">
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">Categoria *</label>
+    <input id="categoria" class="form-control" placeholder="Ex: Física, Matemática, Química">
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">Descrição</label>
+    <textarea id="descricao" class="form-control" rows="2" placeholder="Descrição breve do conteúdo"></textarea>
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">URL do PDF *</label>
+    <input id="arquivo" class="form-control" placeholder="https://exemplo.com/arquivo.pdf">
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">Pré-visualizações (URLs separadas por vírgula)</label>
+    <input id="previas" class="form-control" placeholder="https://img1.com, https://img2.com">
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">Tags (separadas por vírgula)</label>
+    <input id="tags" class="form-control" placeholder="educação, ensino médio, física">
+  </div>
+  
+  <div class="mb-3">
+    <label class="form-label">Data de publicação</label>
+    <input id="data" class="form-control" type="date">
+  </div>
+  
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="gratis" checked>
+    <label class="form-check-label" for="gratis">PDF Gratuito</label>
+  </div>
+  
+  <button class="btn btn-success w-100 py-2" onclick="gerar()">
+    <i data-lucide="plus"></i> Gerar Entrada JSON
+  </button>
+</div>
 
 <div class="card p-4">
-<input id="titulo" class="form-control mb-3" placeholder="Título do PDF">
-<input id="categoria" class="form-control mb-3" placeholder="Categoria">
-<textarea id="descricao" class="form-control mb-3" placeholder="Descrição"></textarea>
-<input id="arquivo" class="form-control mb-3" placeholder="Link do PDF">
-<input id="previas" class="form-control mb-3" placeholder="Links das prévias (separar por vírgula)">
-<button class="btn btn-success w-100" onclick="gerar()">Gerar JSON</button>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h5>JSON Gerado</h5>
+    <button class="btn btn-outline-light btn-sm" onclick="copiarJSON()">
+      <i data-lucide="copy"></i> Copiar
+    </button>
+  </div>
+  <pre id="saida" class="bg-black p-3 mb-0" style="min-height: 200px; max-height: 400px; overflow: auto;">// O JSON aparecerá aqui...</pre>
 </div>
 
-<pre class="mt-4 bg-black p-3" id="saida"></pre>
-
 </div>
 
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
 <script>
+// Inicializar ícones
+lucide.createIcons();
+
+// Função para gerar JSON
 function gerar(){
+  // Pegar valor das prévias e converter em array
+  const previasArray = previas.value ? 
+    previas.value.split(',').map(p => p.trim()).filter(p => p !== '') : [];
+  
+  // Criar objeto
   const obj = {
     id: Date.now(),
-    titulo: titulo.value,
-    categoria: categoria.value,
-    descricao: descricao.value,
-    arquivo: arquivo.value,
-    previas: previas.value.split(',').map(p=>p.trim()),
-    gratis: true
+    nome: titulo.value || "Sem título",
+    categoria: categoria.value || "Geral",
+    descricao: descricao.value || "",
+    url: arquivo.value || "",
+    previas: previasArray,
+    gratis: document.getElementById('gratis').checked,
+    data: data.value || new Date().toISOString().split('T')[0],
+    tags: tags.value || ""
   };
+  
+  // Formatar e exibir JSON
   saida.textContent = JSON.stringify(obj, null, 2);
+  
+  // Adicionar ao clipboard automaticamente
+  copiarJSON();
 }
-</script>
 
+// Função para copiar JSON
+function copiarJSON() {
+  const texto = saida.textContent;
+  if (texto && texto !== '// O JSON aparecerá aqui...') {
+    navigator.clipboard.writeText(texto)
+      .then(() => {
+        // Mostrar feedback
+        const btn = document.querySelector('[onclick="copiarJSON()"]');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="check"></i> Copiado!';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          lucide.createIcons();
+        }, 2000);
+      })
+      .catch(err => {
+        console.error('Erro ao copiar:', err);
+      });
+  }
+}
+
+// Preencher data atual por padrão
+document.getElementById('data').value = new Date().toISOString().split('T')[0];
+</script>
 </body>
-</html>
+    </html>
