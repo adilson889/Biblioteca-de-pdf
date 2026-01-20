@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "titulo": "Guia Prático de Física",
+    "categoria": "Física",
+    "descricao": "Resumo direto com exemplos resolvidos.",
+    "arquivo": "https://exemplo.com/guia-fisica.pdf",
+    "previas": [
+      "https://via.placeholder.com/400x250?text=Fisica+1",
+      "https://via.placeholder.com/400x250?text=Fisica+2"
+    ],
+    "gratis": true
+  }
+]
