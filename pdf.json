@@ -1,25 +1,40 @@
 [
   {
     "id": 1,
-    "titulo": "Guia Prático de Física",
+    "nome": "Guia Prático de Física",
     "categoria": "Física",
     "descricao": "Resumo direto com exemplos resolvidos.",
-    "arquivo": "https://exemplo.com/guia-fisica.pdf",
+    "url": "https://exemplo.com/guia-fisica.pdf",
     "previas": [
       "https://via.placeholder.com/400x250?text=Fisica+1",
       "https://via.placeholder.com/400x250?text=Fisica+2"
     ],
-    "gratis": true
+    "gratis": true,
+    "data": "2024-01-15",
+    "tags": "educação, ensino médio"
   },
   {
-    "id": 1768946089738,
-    "titulo": "Vvbbbbbhbhhhhhhhh",
-    "categoria": "Gggggg",
-    "descricao": "Hbbbbhhh",
-    "arquivo": "Hbbbbhhhhhh",
+    "id": 2,
+    "nome": "Manual de Química Orgânica",
+    "categoria": "Química",
+    "descricao": "Compostos orgânicos e reações químicas.",
+    "url": "https://exemplo.com/quimica-organica.pdf",
     "previas": [
-      "Bbbbbbbhhhhhhhhhh"
+      "https://via.placeholder.com/400x250?text=Quimica+1"
     ],
-    "gratis": true
+    "gratis": true,
+    "data": "2024-01-20",
+    "tags": "química, orgânica"
+  },
+  {
+    "id": 3,
+    "nome": "Álgebra Linear para Iniciantes",
+    "categoria": "Matemática",
+    "descricao": "Introdução aos conceitos de álgebra linear.",
+    "url": "https://exemplo.com/algebra-linear.pdf",
+    "previas": [],
+    "gratis": false,
+    "data": "2024-01-25",
+    "tags": "matemática, álgebra"
   }
 ]
