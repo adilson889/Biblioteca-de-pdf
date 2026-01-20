@@ -18,22 +18,108 @@ body { font-family: 'Inter', sans-serif; background:#f8f9fa; }
 .card:hover { transform: translateY(-5px); }
 .sticky-search { position:sticky; top:0; z-index:1020; background:#f8f9fa; padding:1rem 0; }
 .search-input { border-radius:14px; padding:12px 16px; font-size:1rem; }
-.btn-icon { display:flex; align-items:center; justify-content:center; padding:10px; border-radius:12px; font-size:1rem; gap:6px; }
+
 .carousel-inner img { height:180px; object-fit:cover; border-radius:12px; }
+
+h1.header-animated {
+  font-size:2.5rem;
+  text-align:center;
+  margin-bottom:2rem;
+  background: linear-gradient(90deg, #4f46e5, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: fadeIn 1s ease forwards;
+  opacity:0;
+}
+@keyframes fadeIn {
+  to { opacity:1; }
+}
+
+.btn-icon { display:flex; align-items:center; justify-content:center; padding:10px; border-radius:12px; font-size:1rem; gap:6px; }
 </style>
 </head>
 <body>
 
 <div class="container py-4">
 
-<h1 class="text-center mb-4">Biblioteca de PDFs</h1>
+<!-- Cabeçalho animado -->
+<h1 class="header-animated">Biblioteca de PDFs</h1>
 
 <!-- Pesquisa fixa -->
 <div class="sticky-search mb-4">
-  <input type="text" id="search" class="form-control search-input" placeholder="🔍 Pesquisar PDF..." onkeyup="filtrar()">
+  <input type="text" id="search" class="form-control search-input" placeholder="🔍 Pesquisar PDF...">
 </div>
 
 <!-- Lista de PDFs -->
+<div class="row" id="lista"></div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// Variável global PDFs
+let PDFs = [];
+
+// Referência ao input de pesquisa
+const search = document.getElementById('search');
+
+// Lê o JSON
+fetch('pdf.json')
+.then(r => r.json())
+.then(data => render(data));
+
+// Renderiza os PDFs
+function render(data){
+  PDFs = data;
+  const lista = document.getElementById('lista');
+  lista.innerHTML = '';
+  data.forEach(pdf => {
+    lista.innerHTML += `
+    <div class="col-md-4 mb-4 pdf-item" data-text="${pdf.titulo.toLowerCase()} ${pdf.categoria.toLowerCase()}">
+      <div class="card p-3 h-100">
+        <!-- Carousel pré-visualização -->
+        <div id="c${pdf.id}" class="carousel slide mb-3" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            ${pdf.previas.map((p,i)=>`
+              <div class="carousel-item ${i==0?'active':''}">
+                <img src="${p}" class="d-block w-100" alt="Prévia PDF">
+              </div>`).join('')}
+          </div>
+        </div>
+        <h5 class="mb-2">${pdf.titulo}</h5>
+        <p class="text-muted mb-3" style="font-size:0.9rem">${pdf.descricao}</p>
+        <div class="d-flex gap-2">
+          <a href="${pdf.arquivo}" download="${pdf.titulo}.pdf" class="btn btn-primary btn-icon w-50">
+            <i data-lucide="download"></i>
+          </a>
+          <button class="btn btn-secondary btn-icon w-50" onclick="abrirPreview('${pdf.titulo}')">
+            <i data-lucide="eye"></i>
+          </button>
+        </div>
+      </div>
+    </div>`;
+  });
+  lucide.createIcons();
+}
+
+// Função de pesquisa
+search.addEventListener('input', function(){
+  const termo = this.value.toLowerCase();
+  document.querySelectorAll('.pdf-item').forEach(el=>{
+    el.style.display = el.dataset.text.includes(termo) ? 'block':'none';
+  });
+});
+
+// Modal de pré-visualização simples
+function abrirPreview(nome){
+  alert(`Aqui você pode implementar uma pré-visualização maior do PDF: ${nome}`);
+}
+</script>
+
+</body>
+</html>
 <div class="row" id="lista"></div>
 
 </div>
