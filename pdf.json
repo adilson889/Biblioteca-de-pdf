@@ -36,5 +36,16 @@
     "gratis": false,
     "data": "2024-01-25",
     "tags": "matemática, álgebra"
+  },
+  {
+  "id": 1768950832531,
+  "nome": "OS FUNDAMENTOS DA FÍSICA ",
+  "categoria": "Educação ",
+  "descricao": "Livro do ensino médio e superior",
+  "url": "",
+  "previas": [],
+  "gratis": true,
+  "data": "2025-01-14",
+  "tags": ""
   }
 ]
