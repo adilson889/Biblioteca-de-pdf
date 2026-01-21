@@ -247,13 +247,13 @@ async function loadPDFs() {
                 <a href="${pdf.url}" 
                    class="btn btn-primary btn-icon" 
                    target="_blank"
-                   onclick="tracker.trackPreview(${pdf.id}, '${pdf.nome}')">
+                   onclick="pdfAnalytics.trackPreview(${pdf.id}, '${pdf.nome}')"
                   <i data-lucide="eye"></i> Visualizar
                 </a>
                 <a href="${pdf.url}" 
                    class="btn btn-success btn-icon" 
                    download
-                   onclick="tracker.trackDownload(${pdf.id}, '${pdf.nome}')">
+                   onclick="pdfAnalytics.trackDownload(${pdf.id}, '${pdf.nome}')"
                   <i data-lucide="download"></i> Baixar
                 </a>
               </div>
@@ -291,6 +291,152 @@ async function loadPDFs() {
 
 // Carregar PDFs quando a página carregar
 document.addEventListener('DOMContentLoaded', loadPDFs);
+
+
+    // === SISTEMA DE ANALYTICS ===
+class PDFAnalytics {
+  constructor() {
+    this.storageKey = 'pdf_analytics_data';
+    this.initAnalytics();
+  }
+
+  initAnalytics() {
+    if (!localStorage.getItem(this.storageKey)) {
+      const initialData = {
+        visits: [],
+        previews: [],
+        downloads: [],
+        visitors: [],
+        pdfStats: {}
+      };
+      localStorage.setItem(this.storageKey, JSON.stringify(initialData));
+    }
+  }
+
+  getAnalytics() {
+    return JSON.parse(localStorage.getItem(this.storageKey)) || {};
+  }
+
+  saveAnalytics(data) {
+    localStorage.setItem(this.storageKey, JSON.stringify(data));
+  }
+
+  trackVisit() {
+    const analytics = this.getAnalytics();
+    const visit = {
+      timestamp: new Date().toISOString(),
+      date: new Date().toLocaleDateString('pt-BR'),
+      time: new Date().toLocaleTimeString('pt-BR'),
+      userAgent: navigator.userAgent,
+      referrer: document.referrer || 'direct'
+    };
+
+    analytics.visits.push(visit);
+    
+    if (analytics.visits.length > 1000) {
+      analytics.visits = analytics.visits.slice(-1000);
+    }
+
+    this.saveAnalytics(analytics);
+    return analytics;
+  }
+
+  trackPreview(pdfId, pdfName) {
+    const analytics = this.getAnalytics();
+    const preview = {
+      pdfId: pdfId,
+      pdfName: pdfName,
+      timestamp: new Date().toISOString(),
+      date: new Date().toLocaleDateString('pt-BR'),
+      time: new Date().toLocaleTimeString('pt-BR')
+    };
+
+    analytics.previews.push(preview);
+    
+    if (!analytics.pdfStats[pdfId]) {
+      analytics.pdfStats[pdfId] = {
+        name: pdfName,
+        previews: 0,
+        downloads: 0
+      };
+    }
+    analytics.pdfStats[pdfId].previews++;
+
+    this.saveAnalytics(analytics);
+    return analytics;
+  }
+
+  trackDownload(pdfId, pdfName) {
+    const analytics = this.getAnalytics();
+    const download = {
+      pdfId: pdfId,
+      pdfName: pdfName,
+      timestamp: new Date().toISOString(),
+      date: new Date().toLocaleDateString('pt-BR'),
+      time: new Date().toLocaleTimeString('pt-BR')
+    };
+
+    analytics.downloads.push(download);
+    
+    if (!analytics.pdfStats[pdfId]) {
+      analytics.pdfStats[pdfId] = {
+        name: pdfName,
+        previews: 0,
+        downloads: 0
+      };
+    }
+    analytics.pdfStats[pdfId].downloads++;
+
+    this.saveAnalytics(analytics);
+    return analytics;
+  }
+}
+
+// Instanciar o tracker
+const analyticsTracker = {
+  analytics: new PDFAnalytics(),
+  
+  trackVisit: function() {
+    try {
+      const visitData = localStorage.getItem('pdf_analytics_visit');
+      if (!visitData || this.isNewDay(visitData)) {
+        this.analytics.trackVisit();
+        localStorage.setItem('pdf_analytics_visit', new Date().toISOString());
+      }
+    } catch (e) {
+      console.log('Analytics error:', e);
+    }
+  },
+  
+  trackPreview: function(pdfId, pdfName) {
+    try {
+      this.analytics.trackPreview(pdfId, pdfName);
+    } catch (e) {
+      console.log('Preview tracking error:', e);
+    }
+  },
+  
+  trackDownload: function(pdfId, pdfName) {
+    try {
+      this.analytics.trackDownload(pdfId, pdfName);
+    } catch (e) {
+      console.log('Download tracking error:', e);
+    }
+  },
+  
+  isNewDay: function(lastVisitDate) {
+    const lastVisit = new Date(lastVisitDate);
+    const now = new Date();
+    return lastVisit.getDate() !== now.getDate() || 
+           lastVisit.getMonth() !== now.getMonth() || 
+           lastVisit.getFullYear() !== now.getFullYear();
+  }
+};
+
+// Rastrear visita quando a página carregar
+document.addEventListener('DOMContentLoaded', function() {
+  analyticsTracker.trackVisit();
+});
 </script>
 </body>
   </html>
