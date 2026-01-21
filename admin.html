@@ -2,138 +2,512 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Painel Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Painel Admin - PDFs</title>
+
+<!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Google Font Bold -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
-body { font-family:'Inter', sans-serif; background:#111; color:#fff; }
-.card { background:#1c1c1c; border:none; }
-input, textarea { background:#222 !important; color:#fff !important; }
-.btn-copy { position: absolute; right: 10px; top: 10px; }
+body {
+    font-family: 'Inter', sans-serif;
+    background: #111;
+    color: #fff;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.card {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 12px;
+}
+
+.section-card {
+    border-left: 4px solid #0d6efd;
+    margin-bottom: 30px;
+}
+
+.input-section {
+    margin-bottom: 25px;
+}
+
+.input-section label {
+    display: block;
+    font-weight: 700;
+    color: #e9ecef;
+    margin-bottom: 8px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-section .input-area {
+    position: relative;
+}
+
+.input-section .input-area input,
+.input-section .input-area textarea,
+.input-section .input-area select {
+    width: 100%;
+    background: #2a2a2a;
+    color: #fff;
+    border: 2px solid #444;
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+}
+
+.input-section .input-area input:focus,
+.input-section .input-area textarea:focus,
+.input-section .input-area select:focus {
+    outline: none;
+    border-color: #0d6efd;
+    background: #333;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+.input-section .input-help {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 6px;
+    display: block;
+}
+
+.btn-generate {
+    background: linear-gradient(135deg, #198754 0%, #157347 100%);
+    color: white;
+    border: none;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-generate:hover {
+    background: linear-gradient(135deg, #157347 0%, #0d5c3a 100%);
+    transform: translateY(-2px);
+}
+
+.btn-copy {
+    background: #6c757d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s;
+}
+
+.btn-copy:hover {
+    background: #5a6268;
+}
+
+.btn-copy.copied {
+    background: #198754;
+}
+
+.json-output {
+    background: #0d1117;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #c9d1d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.checkbox-item input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.checkbox-item label {
+    margin: 0;
+    font-weight: 700;
+    color: #e9ecef;
+    cursor: pointer;
+    text-transform: none;
+    font-size: 14px;
+}
+
+.section-title {
+    color: #0d6efd;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 </style>
 </head>
 <body>
 
-<div class="container py-5">
+<div class="container">
+    <!-- Cabeçalho -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="fw-bold" style="color: #0d6efd;">PAINEL ADMINISTRATIVO</h1>
+                <div class="badge bg-dark px-3 py-2">BIBLIOTECA DE PDFS</div>
+            </div>
+        </div>
+    </div>
 
-<h2 class="mb-4">Painel Administrativo - Biblioteca PDF</h2>
-
-<div class="card p-4 mb-4">
-  <h5 class="mb-3">Adicionar Novo PDF</h5>
-  
-  <div class="mb-3">
-    <label class="form-label">Título do PDF *</label>
-    <input id="titulo" class="form-control" placeholder="Ex: Guia de Física">
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Categoria *</label>
-    <input id="categoria" class="form-control" placeholder="Ex: Física, Matemática, Química">
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Descrição</label>
-    <textarea id="descricao" class="form-control" rows="2" placeholder="Descrição breve do conteúdo"></textarea>
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">URL do PDF *</label>
-    <input id="arquivo" class="form-control" placeholder="https://exemplo.com/arquivo.pdf">
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Pré-visualizações (URLs separadas por vírgula)</label>
-    <input id="previas" class="form-control" placeholder="https://img1.com, https://img2.com">
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Tags (separadas por vírgula)</label>
-    <input id="tags" class="form-control" placeholder="educação, ensino médio, física">
-  </div>
-  
-  <div class="mb-3">
-    <label class="form-label">Data de publicação</label>
-    <input id="data" class="form-control" type="date">
-  </div>
-  
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="gratis" checked>
-    <label class="form-check-label" for="gratis">PDF Gratuito</label>
-  </div>
-  
-  <button class="btn btn-success w-100 py-2" onclick="gerar()">
-    <i data-lucide="plus"></i> Gerar Entrada JSON
-  </button>
+    <div class="row">
+        <!-- Coluna Esquerda: Formulário -->
+        <div class="col-lg-8">
+            <!-- Seção 1: Informações do PDF -->
+            <div class="card p-4 section-card">
+                <div class="section-title">
+                    <i data-lucide="file-text"></i>
+                    INFORMAÇÕES DO PDF
+                </div>
+                
+                <!-- Campo: ID -->
+                <div class="input-section">
+                    <label>ID DO PDF</label>
+                    <div class="input-area">
+                        <input type="number" id="id" placeholder="Digite o número de identificação" min="1">
+                    </div>
+                    <span class="input-help">Número único para identificar o PDF no sistema</span>
+                </div>
+                
+                <!-- Campo: Nome -->
+                <div class="input-section">
+                    <label>TÍTULO DO PDF</label>
+                    <div class="input-area">
+                        <input type="text" id="nome" placeholder="Digite o título completo do PDF">
+                    </div>
+                    <span class="input-help">Nome que aparecerá na lista de documentos</span>
+                </div>
+                
+                <!-- Campo: Categoria -->
+                <div class="input-section">
+                    <label>CATEGORIA</label>
+                    <div class="input-area">
+                        <select id="categoria">
+                            <option value="">Selecione uma categoria</option>
+                            <option value="Física">Física</option>
+                            <option value="Matemática">Matemática</option>
+                            <option value="Química">Química</option>
+                            <option value="Biologia">Biologia</option>
+                            <option value="História">História</option>
+                            <option value="Geografia">Geografia</option>
+                            <option value="Português">Português</option>
+                            <option value="Inglês">Inglês</option>
+                            <option value="Programação">Programação</option>
+                            <option value="Outra">Outra</option>
+                        </select>
+                    </div>
+                    <span class="input-help">Área do conhecimento à qual o PDF pertence</span>
+                </div>
+            </div>
+            
+            <!-- Seção 2: Conteúdo -->
+            <div class="card p-4 section-card">
+                <div class="section-title">
+                    <i data-lucide="file-text"></i>
+                    CONTEÚDO
+                </div>
+                
+                <!-- Campo: Descrição -->
+                <div class="input-section">
+                    <label>DESCRIÇÃO</label>
+                    <div class="input-area">
+                        <textarea id="descricao" rows="3" placeholder="Descreva o conteúdo deste PDF"></textarea>
+                    </div>
+                    <span class="input-help">Breve resumo do que o PDF contém</span>
+                </div>
+                
+                <!-- Campo: URL -->
+                <div class="input-section">
+                    <label>URL DO ARQUIVO</label>
+                    <div class="input-area">
+                        <input type="url" id="url" placeholder="https://exemplo.com/documento.pdf">
+                    </div>
+                    <span class="input-help">Link direto para o arquivo PDF</span>
+                </div>
+                
+                <!-- Campo: Pré-visualizações -->
+                <div class="input-section">
+                    <label>PRÉ-VISUALIZAÇÕES</label>
+                    <div class="input-area">
+                        <textarea id="previas" rows="2" placeholder="URL da imagem 1, URL da imagem 2"></textarea>
+                    </div>
+                    <span class="input-help">Links de imagens para pré-visualização (separados por vírgula)</span>
+                </div>
+            </div>
+            
+            <!-- Seção 3: Classificação -->
+            <div class="card p-4 section-card">
+                <div class="section-title">
+                    <i data-lucide="tag"></i>
+                    CLASSIFICAÇÃO
+                </div>
+                
+                <!-- Campo: Tags -->
+                <div class="input-section">
+                    <label>TAGS</label>
+                    <div class="input-area">
+                        <input type="text" id="tags" placeholder="física, exercícios, ensino médio">
+                    </div>
+                    <span class="input-help">Palavras-chave separadas por vírgula</span>
+                </div>
+                
+                <!-- Campo: Data -->
+                <div class="input-section">
+                    <label>DATA DE PUBLICAÇÃO</label>
+                    <div class="input-area">
+                        <input type="date" id="data">
+                    </div>
+                    <span class="input-help">Data em que o PDF foi publicado</span>
+                </div>
+                
+                <!-- Campo: Tipo de Acesso -->
+                <div class="input-section">
+                    <label>TIPO DE ACESSO</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="radio" id="gratis" name="acesso" value="true" checked>
+                            <label for="gratis">GRATUITO</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="radio" id="pago" name="acesso" value="false">
+                            <label for="pago">PAGO</label>
+                        </div>
+                    </div>
+                    <span class="input-help">Defina se o PDF é gratuito ou requer pagamento</span>
+                </div>
+            </div>
+            
+            <!-- Botão Gerar -->
+            <button class="btn-generate mt-4" onclick="gerarJSON()">
+                <i data-lucide="file-json"></i>
+                GERAR JSON PARA PDFS.JSON
+            </button>
+        </div>
+        
+        <!-- Coluna Direita: JSON -->
+        <div class="col-lg-4">
+            <div class="card p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="section-title mb-0">
+                        <i data-lucide="code"></i>
+                        JSON GERADO
+                    </div>
+                    <button class="btn-copy" onclick="copiarJSON()">
+                        <i data-lucide="copy"></i>
+                        COPIAR
+                    </button>
+                </div>
+                
+                <div class="json-output" id="saida">
+// Preencha todos os campos e clique em GERAR JSON
+// O resultado aparecerá aqui automaticamente
+                </div>
+                
+                <div class="mt-4">
+                    <div class="alert alert-dark" role="alert" style="background: #2a2a2a; border: 1px solid #444; color: #e9ecef;">
+                        <div class="d-flex align-items-center gap-2">
+                            <i data-lucide="info"></i>
+                            <div>
+                                <strong>INSTRUÇÃO</strong>
+                                <div class="small mt-1">Substitua todo o conteúdo do arquivo pdfs.json pelo JSON gerado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="card p-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5>JSON Gerado</h5>
-    <button class="btn btn-outline-light btn-sm" onclick="copiarJSON()">
-      <i data-lucide="copy"></i> Copiar
-    </button>
-  </div>
-  <pre id="saida" class="bg-black p-3 mb-0" style="min-height: 200px; max-height: 400px; overflow: auto;">// O JSON aparecerá aqui...</pre>
-</div>
-
-</div>
-
-<!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
 <script>
 // Inicializar ícones
 lucide.createIcons();
 
+// Preencher data atual por padrão
+document.getElementById('data').value = new Date().toISOString().split('T')[0];
+
+// Sugerir próximo ID
+async function sugerirProximoID() {
+    try {
+        const response = await fetch('pdfs.json');
+        if (response.ok) {
+            const pdfs = await response.json();
+            if (pdfs.length > 0) {
+                const maiorID = Math.max(...pdfs.map(pdf => pdf.id));
+                document.getElementById('id').value = maiorID + 1;
+            } else {
+                document.getElementById('id').value = 1;
+            }
+        }
+    } catch (error) {
+        document.getElementById('id').value = 1;
+    }
+}
+
+// Executar quando carregar
+sugerirProximoID();
+
 // Função para gerar JSON
-function gerar(){
-  // Pegar valor das prévias e converter em array
-  const previasArray = previas.value ? 
-    previas.value.split(',').map(p => p.trim()).filter(p => p !== '') : [];
-  
-  // Criar objeto
-  const obj = {
-    id: Date.now(),
-    nome: titulo.value || "Sem título",
-    categoria: categoria.value || "Geral",
-    descricao: descricao.value || "",
-    url: arquivo.value || "",
-    previas: previasArray,
-    gratis: document.getElementById('gratis').checked,
-    data: data.value || new Date().toISOString().split('T')[0],
-    tags: tags.value || ""
-  };
-  
-  // Formatar e exibir JSON
-  saida.textContent = JSON.stringify(obj, null, 2);
-  
-  // Adicionar ao clipboard automaticamente
-  copiarJSON();
+async function gerarJSON() {
+    // Validar campos obrigatórios
+    const id = parseInt(document.getElementById('id').value);
+    const nome = document.getElementById('nome').value.trim();
+    const categoria = document.getElementById('categoria').value;
+    const url = document.getElementById('url').value.trim();
+    
+    if (!id || id < 1) {
+        alert('ID deve ser um número maior que zero');
+        return;
+    }
+    
+    if (!nome) {
+        alert('Título do PDF é obrigatório');
+        return;
+    }
+    
+    if (!categoria) {
+        alert('Categoria é obrigatória');
+        return;
+    }
+    
+    if (!url) {
+        alert('URL do arquivo é obrigatória');
+        return;
+    }
+    
+    // Processar pré-visualizações
+    const previasTexto = document.getElementById('previas').value.trim();
+    const previasArray = previasTexto ? 
+        previasTexto.split(',').map(p => p.trim()).filter(p => p !== '') : [];
+    
+    // Obter tipo de acesso
+    const gratis = document.getElementById('gratis').checked;
+    
+    // Criar objeto
+    const novoPDF = {
+        id: id,
+        nome: nome,
+        categoria: categoria,
+        descricao: document.getElementById('descricao').value.trim() || "Sem descrição",
+        url: url,
+        previas: previasArray,
+        gratis: gratis,
+        data: document.getElementById('data').value || new Date().toISOString().split('T')[0],
+        tags: document.getElementById('tags').value.trim() || ""
+    };
+    
+    // Carregar PDFs existentes
+    try {
+        const response = await fetch('pdfs.json');
+        let pdfs = [];
+        
+        if (response.ok) {
+            pdfs = await response.json();
+            
+            // Verificar se ID já existe
+            const idExistente = pdfs.findIndex(pdf => pdf.id === id);
+            if (idExistente !== -1) {
+                if (!confirm(`PDF com ID ${id} já existe. Substituir?`)) {
+                    return;
+                }
+                pdfs[idExistente] = novoPDF;
+            } else {
+                pdfs.push(novoPDF);
+            }
+        } else {
+            pdfs = [novoPDF];
+        }
+        
+        // Ordenar por ID
+        pdfs.sort((a, b) => a.id - b.id);
+        
+        // Gerar JSON formatado
+        exibirJSON(pdfs);
+        
+    } catch (error) {
+        // Se arquivo não existe, criar novo
+        exibirJSON([novoPDF]);
+    }
+}
+
+// Exibir JSON formatado
+function exibirJSON(pdfsArray) {
+    const jsonFormatado = JSON.stringify(pdfsArray, null, 2);
+    document.getElementById('saida').textContent = jsonFormatado;
+    
+    // Copiar automaticamente
+    copiarJSON();
 }
 
 // Função para copiar JSON
 function copiarJSON() {
-  const texto = saida.textContent;
-  if (texto && texto !== '// O JSON aparecerá aqui...') {
-    navigator.clipboard.writeText(texto)
-      .then(() => {
-        // Mostrar feedback
-        const btn = document.querySelector('[onclick="copiarJSON()"]');
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="check"></i> Copiado!';
-        setTimeout(() => {
-          btn.innerHTML = originalHTML;
-          lucide.createIcons();
-        }, 2000);
-      })
-      .catch(err => {
-        console.error('Erro ao copiar:', err);
-      });
-  }
+    const texto = document.getElementById('saida').textContent;
+    
+    if (!texto.includes('Preencha todos os campos')) {
+        navigator.clipboard.writeText(texto)
+            .then(() => {
+                const btn = document.querySelector('.btn-copy');
+                const originalHTML = btn.innerHTML;
+                
+                btn.innerHTML = '<i data-lucide="check"></i> COPIADO';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('copied');
+                    lucide.createIcons();
+                }, 2000);
+            })
+            .catch(err => {
+                console.error('Erro ao copiar:', err);
+                alert('Use Ctrl+C para copiar o texto');
+            });
+    }
 }
-
-// Preencher data atual por padrão
-document.getElementById('data').value = new Date().toISOString().split('T')[0];
 </script>
 </body>
-    </html>
+  </html>
