@@ -1,15 +1,15 @@
 [
   {
     "id": 1,
-    "nome": "OS FUNDAMENTOS DA FÍSICA, RAMALHO TOLEDO",
+    "nome": "OS FUNDAMENTOS DA FÍSICA VOL.3, RAMALHO TOLEDO",
     "categoria": "Física",
-    "descricao": "Livro de Física para o ensino secundário",
-    "url": "https://github.com/adilson889/Biblioteca-de-pdf/blob/cb678170a7d497d0b5ec0a402d643d1d7bd05b39/pdf/m2.jpg",
+    "descricao": "Manual de Física ensino secundário",
+    "url": "https://www.mediafire.com/file/pajsq93u9t9eqyy/fundamentos-da-f%25C3%25ADsica.pdf/file",
     "previas": [
-      "https://github.com/adilson889/Biblioteca-de-pdf/blob/cb678170a7d497d0b5ec0a402d643d1d7bd05b39/pdf/m1.jpg"
+      "https://www.mediafire.com/view/kh55mrssq5sct7e/m1.jpg/file"
     ],
     "gratis": true,
-    "data": "2026-01-21",
-    "tags": "Física"
+    "data": "2026-01-23",
+    "tags": "Educação"
   }
 ]
