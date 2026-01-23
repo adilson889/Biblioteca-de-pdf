@@ -20,7 +20,7 @@
 body { font-family: 'Inter', sans-serif; background:#f8f9fa; }
 .pdf-list-item { display:flex; gap:16px; align-items:flex-start; margin-bottom:20px; background:#fff; border-radius:12px; padding:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); transition:transform 0.2s; flex-wrap:wrap; }
 .pdf-list-item:hover { transform: translateY(-3px); }
-.pdf-list-image { width:160px; height:120px; object-fit:cover; border-radius:8px; cursor:pointer; flex-shrink:0; }
+.pdf-list-image { width:140px; height:100px; object-fit:cover; border-radius:8px; cursor:pointer; flex-shrink:0; }
 .pdf-list-content { flex:1; display:flex; flex-direction:column; min-width:0; }
 .pdf-list-title { font-size:1.2rem; font-weight:700; margin-bottom:4px; }
 .pdf-list-description { font-size:0.9rem; color:#6c757d; margin-bottom:6px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
@@ -52,7 +52,7 @@ body { font-family: 'Inter', sans-serif; background:#f8f9fa; }
         <h5 class="modal-title text-white">Pré-visualizações</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body overflow-auto text-center" id="imageModalContent"></div>
+      <div class="modal-body overflow-auto text-center" id="imageModalContent" style="display:flex;flex-direction:column;align-items:center;"></div>
     </div>
   </div>
 </div>
@@ -128,7 +128,7 @@ function openImageModal(images=[]){
 </script>
 
 <footer class="text-center py-4 mt-5" style="background:#f8f9fa; color:#6c757d; font-size:13px; border-top:1px solid #dee2e6; border-radius:12px 12px 0 0;">
-  © 2026 Biblioteca de PDFs | <a href="licenca.html" style="color:#0d6efd; text-decoration:none;">Políticas & Privacidade</a>
+  © 2026 Biblioteca de PDFs | <a href="licenca.html" style="color:#0d6efd; text-decoration:none;">Licença MIT</a>
 </footer>
 
 </body>
