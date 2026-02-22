@@ -5,42 +5,224 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TCC Hub</title>
     <style>
-        /* Estilos originais mantidos para preservar o design P&B */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --black: #000000; --white: #FFFFFF;
-            --gray-100: #f5f5f5; --gray-300: #e0e0e0;
-            --gray-400: #bdbdbd; --gray-700: #616161; --gray-900: #212121;
+        /* ===== PRETO E BRANCO - DESIGN SYSTEM ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--gray-100); color: var(--gray-900); line-height: 1.6; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; border-bottom: 2px solid var(--black); margin-bottom: 30px; gap: 15px; }
-        .logo { font-size: 28px; font-weight: bold; text-decoration: none; color: var(--black); cursor: pointer; }
-        .nav-links { display: flex; gap: 20px; }
-        .nav-link { text-decoration: none; color: var(--gray-700); font-weight: 500; cursor: pointer; padding: 5px 10px; }
-        .nav-link:hover, .nav-link.active { color: var(--black); border-bottom: 2px solid var(--black); }
-        .section { display: none; }
-        .section.active { display: block; }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
-        .card { background: var(--white); border: 1px solid var(--gray-300); padding: 20px; transition: all 0.2s; }
-        .card:hover { border-color: var(--black); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .form-container { max-width: 500px; margin: 30px auto; background: var(--white); padding: 40px; border: 1px solid var(--gray-300); }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; }
-        input, textarea, select { width: 100%; padding: 12px; border: 1px solid var(--gray-400); background: var(--white); font-family: inherit; }
-        .btn { display: inline-block; padding: 12px 24px; background: var(--white); border: 2px solid var(--black); color: var(--black); font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; text-align: center; }
-        .btn:hover { background: var(--black); color: var(--white); }
-        .btn-block { width: 100%; }
-        .perfil-header { background: var(--white); padding: 30px; border: 1px solid var(--gray-300); display: flex; gap: 30px; align-items: center; }
-        .avatar { width: 100px; height: 100px; border-radius: 50%; background: var(--gray-300); display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: bold; }
-        .tabs { display: flex; gap: 10px; margin: 30px 0 20px; border-bottom: 1px solid var(--gray-300); }
-        .tab { padding: 10px 20px; cursor: pointer; border: 1px solid var(--gray-300); background: var(--white); }
-        .tab.active { background: var(--black); color: var(--white); }
-        .hidden { display: none; }
+
+        :root {
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-100: #f5f5f5;
+            --gray-200: #eeeeee;
+            --gray-300: #e0e0e0;
+            --gray-400: #bdbdbd;
+            --gray-500: #9e9e9e;
+            --gray-600: #757575;
+            --gray-700: #616161;
+            --gray-800: #424242;
+            --gray-900: #212121;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--gray-100);
+            color: var(--gray-900);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* NAVEGAÇÃO */
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--black);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--black);
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--gray-700);
+            font-weight: 500;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--black);
+            border-bottom: 2px solid var(--black);
+        }
+
+        /* SEÇÕES */
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* CARDS */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            padding: 20px;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--black);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* FORMULÁRIOS */
+        .form-container {
+            max-width: 500px;
+            margin: 30px auto;
+            background: var(--white);
+            padding: 40px;
+            border: 1px solid var(--gray-300);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--gray-400);
+            background: var(--white);
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--black);
+        }
+
+        /* BOTÕES */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--white);
+            border: 2px solid var(--black);
+            color: var(--black);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-block {
+            width: 100%;
+        }
+
+        /* PERFIL */
+        .perfil-header {
+            background: var(--white);
+            padding: 30px;
+            border: 1px solid var(--gray-300);
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0 20px;
+            border-bottom: 1px solid var(--gray-300);
+            padding-bottom: 10px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid var(--gray-300);
+            background: var(--white);
+        }
+
+        .tab.active {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .tab-content {
+            display: block;
+        }
+
+        .tab-content.hidden {
+            display: none;
+        }
+
+        /* UTILITÁRIOS */
         .text-center { text-align: center; }
         .mb-2 { margin-bottom: 20px; }
-        .underline { text-decoration: underline; }
+        .mt-4 { margin-top: 40px; }
         .pointer { cursor: pointer; }
+        .underline { text-decoration: underline; }
     </style>
 </head>
 <body>
@@ -53,12 +235,13 @@
         <section id="login" class="section">
             <div class="form-container">
                 <h1 class="text-center" style="font-size: 48px; margin-bottom: 20px;">📚</h1>
-                <h2 class="text-center mb-2">Compartilhe seu conhecimento</h2>
+                <h2 class="text-center mb-2">Compartilhe seu conhecimento e receba avaliações de quem entende do assunto</h2>
+                <p class="text-center mb-2" style="color: var(--gray-600);">Faça login para continuar</p>
                 <form id="form-login">
-                    <div class="form-group"><label>Email</label><input type="email" id="login-email" required></div>
-                    <div class="form-group"><label>Senha</label><input type="password" id="login-senha" required></div>
+                    <div class="form-group"><label>Email institucional</label><input type="email" id="login-email" placeholder="seu@email.edu" required></div>
+                    <div class="form-group"><label>Senha</label><input type="password" id="login-senha" placeholder="********" required></div>
                     <button type="submit" class="btn btn-block">Entrar</button>
-                    <p class="text-center" style="margin-top: 20px;">Não tem conta? <span onclick="mostrarSecao('cadastro')" class="underline pointer">Cadastre-se</span></p>
+                    <p class="text-center" style="margin-top: 20px;">Não tem conta? <span onclick="mostrarCadastro()" class="underline pointer">Cadastre-se</span></p>
                 </form>
             </div>
         </section>
@@ -67,13 +250,14 @@
             <div class="form-container">
                 <h2 class="text-center mb-2">Criar conta</h2>
                 <form id="form-cadastro">
-                    <div class="form-group"><label>Nome</label><input type="text" id="cad-nome" required></div>
-                    <div class="form-group"><label>Email</label><input type="email" id="cad-email" required></div>
-                    <div class="form-group"><label>Curso</label><input type="text" id="cad-curso" required></div>
-                    <div class="form-group"><label>Instituição</label><input type="text" id="cad-instituicao" required></div>
-                    <div class="form-group"><label>Senha</label><input type="password" id="cad-senha" required></div>
+                    <div class="form-group"><label>Nome completo</label><input type="text" id="cad-nome" placeholder="seu nome" required></div>
+                    <div class="form-group"><label>Email</label><input type="email" id="cad-email" placeholder="seu@email.com" required></div>
+                    <div class="form-group"><label>Curso</label><input type="text" id="cad-curso" placeholder="seu curso" required></div>
+                    <div class="form-group"><label>Instituição</label><input type="text" id="cad-instituicao" placeholder="sua instituição" required></div>
+                    <div class="form-group"><label>Senha</label><input type="password" id="cad-senha" placeholder="******" required></div>
+                    <div class="form-group"><label>Confirmar senha</label><input type="password" id="cad-confirma" placeholder="******" required></div> 
                     <button type="submit" class="btn btn-block">Criar conta</button>
-                    <p class="text-center" style="margin-top: 20px;">Já tem conta? <span onclick="mostrarSecao('login')" class="underline pointer">Login</span></p>
+                    <p class="text-center" style="margin-top: 20px;">Já tem conta? <span onclick="mostrarLogin()" class="underline pointer">Fazer login</span></p>
                 </form>
             </div>
         </section>
@@ -84,34 +268,40 @@
         </section>
 
         <section id="explorar" class="section">
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <input type="text" id="busca" placeholder="Buscar..." style="flex: 1;">
-                <select id="filtro-curso"><option value="">Todos os cursos</option></select>
+            <h1 class="mb-2">Explorar Trabalhos</h1>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" id="busca" placeholder="Buscar por título, autor ou palavras-chave..." style="flex: 1; padding: 10px;">
+                <select id="filtro-curso" style="padding: 10px; min-width: 200px;"><option value="">Todos os cursos</option></select>
             </div>
             <div class="card-grid" id="explorar-cards"></div>
         </section>
 
-        <section id="perfil" class="section" id="perfil-content"></section>
-
+        <section id="perfil" class="section"></section>
+        
         <section id="publicar" class="section">
-            <div class="form-container">
+            <div class="form-container" style="max-width: 700px;">
                 <h2 class="text-center mb-2">Publicar TCC</h2>
                 <form id="form-publicar">
-                    <div class="form-group"><label>Título</label><input type="text" id="titulo" required></div>
-                    <div class="form-group"><label>Orientador</label><input type="text" id="orientador" required></div>
-                    <div class="form-group"><label>Ano</label><input type="number" id="ano" required></div>
+                    <div class="form-group"><label>Título completo</label><input type="text" id="titulo" required></div>
+                    <div class="form-group"><label>Orientador(a)</label><input type="text" id="orientador" required></div>
+                    <div class="form-group"><label>Ano de conclusão</label><input type="number" id="ano" min="2000" max="2026" required></div>
                     <div class="form-group"><label>Resumo</label><textarea id="resumo" rows="4" required></textarea></div>
-                    <div class="form-group"><label>URL do PDF</label><input type="url" id="pdf_url" required></div>
-                    <button type="submit" class="btn btn-block">Enviar para revisão</button>
+                    <div class="form-group"><label>Palavras-chave</label><input type="text" id="palavras_chave" placeholder="ex: IA, tecnologia"></div>
+                    <div class="form-group"><label>Link do PDF</label><input type="url" id="pdf_url" placeholder="https://drive.google.com/..." required></div>
+                    <button type="submit" class="btn btn-block">Enviar para avaliação</button>
                 </form>
             </div>
         </section>
 
         <section id="tcc-view" class="section">
-            <span class="btn" onclick="mostrarSecao('explorar')">← Voltar</span>
-            <div id="tcc-detalhes" style="background: white; padding: 30px; margin-top: 20px; border: 1px solid #ddd;"></div>
+            <span class="btn" onclick="voltarParaExplorar()">← Voltar</span>
+            <div id="tcc-detalhes" style="background: white; padding: 30px; margin-top: 20px;"></div>
         </section>
     </div>
+
+    <footer class="text-center" style="padding: 20px; margin-top: 50px; border-top: 1px solid var(--gray-300); font-size: 13px; color: var(--gray-600);">
+        © 2026 TCC Hub
+    </footer>
 
     <script>
         let tccs = [];
@@ -119,16 +309,17 @@
         let usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado') || 'null');
         let tccsPendentes = JSON.parse(localStorage.getItem('tccs_pendentes') || '[]');
 
-        // Carregar do JSON com Fallback
+        // ===== CARREGAMENTO RESILIENTE (FIX GITHUB PAGES) =====
         async function carregarDados() {
             try {
-                // Tenta carregar do arquivo estático (GitHub)
-                const response = await fetch('./data/tccs.json');
-                const data = await response.json();
+                // Adicionado './' para garantir caminho relativo correto no GitHub
+                const res = await fetch('./data/tccs.json');
+                if (!res.ok) throw new Error();
+                const data = await res.json();
                 tccs = data.tccs || [];
             } catch (err) {
-                console.warn("Arquivo JSON não encontrado, usando dados locais.");
-                tccs = [];
+                console.warn("Aviso: Arquivo data/tccs.json não encontrado ou vazio.");
+                tccs = []; // Evita tela branca se o arquivo falhar
             }
             inicializar();
         }
@@ -138,20 +329,35 @@
             const target = document.getElementById(secao);
             if(target) target.classList.add('active');
             
-            if (secao === 'inicio') renderizarCards('feed-cards', tccs.slice(-6).reverse());
-            if (secao === 'explorar') renderizarExplorar();
-            if (secao === 'perfil') renderizarPerfil();
-            atualizarMenu();
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const linkAtivo = document.querySelector(`[onclick*="'${secao}'"]`);
+            if (linkAtivo) linkAtivo.classList.add('active');
+
+            if (secao === 'explorar') carregarExplorar();
+            if (secao === 'inicio') carregarFeed();
+            if (secao === 'perfil') carregarPerfil();
         }
 
         function verificarEAcessar(secao) {
-            usuarioLogado ? mostrarSecao(secao) : mostrarSecao('login');
+            if (!usuarioLogado && secao !== 'login' && secao !== 'cadastro') mostrarLogin();
+            else mostrarSecao(secao);
+        }
+
+        function mostrarLogin() { mostrarSecao('login'); }
+        function mostrarCadastro() { mostrarSecao('cadastro'); }
+        function voltarParaExplorar() { usuarioLogado ? mostrarSecao('explorar') : mostrarLogin(); }
+
+        function mostrarTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelector(`.tab[onclick*="${tab}"]`).classList.add('active');
+            document.getElementById(tab).classList.remove('hidden');
         }
 
         function atualizarMenu() {
-            const nav = document.getElementById('nav-links');
+            const navLinks = document.getElementById('nav-links');
             if (usuarioLogado) {
-                nav.innerHTML = `
+                navLinks.innerHTML = `
                     <span class="nav-link" onclick="mostrarSecao('inicio')">Início</span>
                     <span class="nav-link" onclick="mostrarSecao('explorar')">Explorar</span>
                     <span class="nav-link" onclick="mostrarSecao('perfil')">${usuarioLogado.nome.split(' ')[0]}</span>
@@ -159,103 +365,143 @@
                     <span class="nav-link" onclick="logout()">Sair</span>
                 `;
             } else {
-                nav.innerHTML = `<span class="nav-link" onclick="mostrarSecao('login')">Entrar</span>`;
+                navLinks.innerHTML = `
+                    <span class="nav-link" onclick="mostrarLogin()">Entrar</span>
+                    <span class="nav-link" onclick="mostrarCadastro()">Cadastrar</span>
+                `;
             }
         }
 
-        function renderizarCards(containerId, lista) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-            
-            if (lista.length === 0) {
-                container.innerHTML = '<p>Nenhum registro encontrado no sistema.</p>';
+        document.getElementById('form-login')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const senha = document.getElementById('login-senha').value;
+            const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+            if (usuario) {
+                usuarioLogado = usuario;
+                localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+                atualizarMenu();
+                mostrarSecao('inicio');
+            } else { alert('Email ou senha inválidos'); }
+        });
+
+        document.getElementById('form-cadastro')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('cad-senha').value !== document.getElementById('cad-confirma').value) {
+                alert('Senhas não conferem'); return;
+            }
+            const novoUsuario = {
+                id: Date.now(),
+                nome: document.getElementById('cad-nome').value,
+                email: document.getElementById('cad-email').value,
+                curso: document.getElementById('cad-curso').value,
+                instituicao: document.getElementById('cad-instituicao').value,
+                senha: document.getElementById('cad-senha').value,
+                dataCadastro: new Date().toISOString(),
+                tccs: []
+            };
+            usuarios.push(novoUsuario);
+            localStorage.setItem('usuarios', JSON.stringify(usuarios));
+            alert('Conta criada!'); mostrarLogin();
+        });
+
+        function logout() {
+            usuarioLogado = null;
+            localStorage.removeItem('usuarioLogado');
+            atualizarMenu();
+            mostrarLogin();
+        }
+
+        function carregarFeed() {
+            const feed = document.getElementById('feed-cards');
+            const recentes = [...tccs].reverse().slice(0, 6);
+            if (recentes.length === 0) {
+                feed.innerHTML = '<p>Nenhum TCC publicado no JSON ainda.</p>';
                 return;
             }
-
-            container.innerHTML = lista.map(tcc => `
+            feed.innerHTML = recentes.map(tcc => `
                 <div class="card">
                     <h3>${tcc.titulo}</h3>
                     <p><strong>${tcc.autor}</strong> • ${tcc.curso}</p>
-                    <p>${tcc.resumo.substring(0, 100)}...</p>
-                    <div style="margin-top: 15px; display: flex; justify-content: space-between;">
-                        <span>⭐ ${tcc.nota || 'S/N'}</span>
-                        <span class="btn" style="padding: 5px 10px;" onclick="verTCC(${tcc.id})">Abrir</span>
+                    <div style="margin-top: 16px; display: flex; justify-content: space-between;">
+                        <span>⭐ ${tcc.nota || '0.0'}</span>
+                        <span class="btn" style="padding: 5px 15px;" onclick="verTCC(${tcc.id})">Abrir</span>
                     </div>
                 </div>
             `).join('');
         }
 
+        function carregarExplorar() {
+            const cursos = [...new Set(tccs.map(t => t.curso).filter(Boolean))];
+            document.getElementById('filtro-curso').innerHTML = '<option value="">Todos os cursos</option>' + 
+                cursos.map(c => `<option value="${c}">${c}</option>`).join('');
+            filtrarExplorar();
+        }
+
+        function filtrarExplorar() {
+            const busca = document.getElementById('busca').value.toLowerCase();
+            const curso = document.getElementById('filtro-curso').value;
+            const filtrados = tccs.filter(t => 
+                (t.titulo?.toLowerCase().includes(busca) || t.autor?.toLowerCase().includes(busca)) &&
+                (curso === '' || t.curso === curso)
+            );
+            document.getElementById('explorar-cards').innerHTML = filtrados.map(tcc => `
+                <div class="card">
+                    <h3>${tcc.titulo}</h3>
+                    <p><strong>${tcc.autor}</strong> • ${tcc.curso}</p>
+                    <span class="btn" style="margin-top:10px" onclick="verTCC(${tcc.id})">Ver</span>
+                </div>
+            `).join('');
+        }
+
         function verTCC(id) {
-            const tcc = tccs.find(t => t.id == id) || tccsPendentes.find(t => t.id == id);
+            const tcc = tccs.find(t => t.id == id);
             if (!tcc) return;
             document.getElementById('tcc-detalhes').innerHTML = `
-                <h2>${tcc.titulo}</h2>
+                <h1>${tcc.titulo}</h1>
                 <p><strong>Autor:</strong> ${tcc.autor} | <strong>Ano:</strong> ${tcc.ano}</p>
-                <p><strong>Instituição:</strong> ${tcc.instituicao}</p>
-                <hr style="margin: 15px 0">
-                <p>${tcc.resumo}</p>
-                <a href="${tcc.pdf_url}" target="_blank" class="btn" style="margin-top: 20px;">Baixar PDF</a>
+                <hr><p>${tcc.resumo}</p>
+                <a href="${tcc.pdf_url}" target="_blank" class="btn" style="margin-top:20px">Ver PDF</a>
             `;
             mostrarSecao('tcc-view');
         }
 
-        function renderizarExplorar() {
-            const cursos = [...new Set(tccs.map(t => t.curso))];
-            const select = document.getElementById('filtro-curso');
-            select.innerHTML = '<option value="">Todos os cursos</option>' + cursos.map(c => `<option value="${c}">${c}</option>`).join('');
-            renderizarCards('explorar-cards', tccs);
-        }
-
-        function renderizarPerfil() {
-            const container = document.getElementById('perfil');
-            const meusTccs = tccs.filter(t => t.usuarioId === usuarioLogado.id);
-            container.innerHTML = `
+        function carregarPerfil() {
+            if (!usuarioLogado) return;
+            const meusTCCs = tccs.filter(t => t.usuarioId === usuarioLogado.id);
+            document.getElementById('perfil').innerHTML = `
                 <div class="perfil-header">
                     <div class="avatar">${usuarioLogado.nome[0]}</div>
-                    <div><h2>${usuarioLogado.nome}</h2><p>${usuarioLogado.curso}</p></div>
+                    <div><h2>${usuarioLogado.nome}</h2><p>${usuarioLogado.email}</p></div>
                 </div>
-                <h3 class="mt-4">Meus Trabalhos</h3>
-                <div class="card-grid">${meusTccs.map(t => `<div class="card"><h4>${t.titulo}</h4></div>`).join('')}</div>
+                <div class="card-grid">${meusTCCs.map(t => `<div class="card"><h3>${t.titulo}</h3></div>`).join('')}</div>
             `;
         }
 
-        // Login Logic
-        document.getElementById('form-login').onsubmit = (e) => {
+        document.getElementById('form-publicar')?.addEventListener('submit', function(e) {
             e.preventDefault();
-            const user = usuarios.find(u => u.email === document.getElementById('login-email').value);
-            if(user) {
-                usuarioLogado = user;
-                localStorage.setItem('usuarioLogado', JSON.stringify(user));
-                mostrarSecao('inicio');
-            } else { alert("Usuário não encontrado"); }
-        };
-
-        // Cadastro Logic
-        document.getElementById('form-cadastro').onsubmit = (e) => {
-            e.preventDefault();
-            const newUser = {
+            const tccData = {
                 id: Date.now(),
-                nome: document.getElementById('cad-nome').value,
-                email: document.getElementById('cad-email').value,
-                curso: document.getElementById('cad-curso').value
+                usuarioId: usuarioLogado.id,
+                titulo: document.getElementById('titulo').value,
+                autor: usuarioLogado.nome,
+                status: 'pendente'
             };
-            usuarios.push(newUser);
-            localStorage.setItem('usuarios', JSON.stringify(usuarios));
-            alert("Conta criada!");
-            mostrarSecao('login');
-        };
+            tccsPendentes.push(tccData);
+            localStorage.setItem('tccs_pendentes', JSON.stringify(tccsPendentes));
+            alert('Enviado! Use o admin.html para aprovar e gerar o JSON.');
+            this.reset();
+        });
 
-        function logout() {
-            localStorage.removeItem('usuarioLogado');
-            location.reload();
-        }
+        document.getElementById('busca')?.addEventListener('input', filtrarExplorar);
+        document.getElementById('filtro-curso')?.addEventListener('change', filtrarExplorar);
 
         function inicializar() {
-            if (usuarioLogado) mostrarSecao('inicio');
-            else mostrarSecao('login');
+            atualizarMenu();
+            usuarioLogado ? mostrarSecao('inicio') : mostrarLogin();
         }
 
-        carregarDados();
+        carregarDados(); // Inicia o fetch
     </script>
 </body>
 </html>
